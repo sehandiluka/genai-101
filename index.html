@@ -3,13 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Fun Facts Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Random Facts about Sri Lanka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .fact-display {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow-wrap: break-word;
+        }
+
+        .fact-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .fact-button:hover {
+            background-color: #0056b3;
+        }
+
+        .fact-button:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Fun Facts About Me!</h1>
-    <div id="fact-display">Click the button to see a fun fact!</div>
-    <button onclick="generateFact()">Generate Another Fun Fact</button>
-    <script src="script.js"></script>
+    <div class="container">
+        <h1>Random Fact about Sri Lanka</h1>
+        <div id="factDisplay" class="fact-display">Click the button to get a random fact!</div>
+        <button id="factButton" class="fact-button">Get Random Fact</button>
+    </div>
+    <script>
+        const facts = [
+            {
+                "fact": "Geographical Location",
+                "description": "Sri Lanka is an island nation located in South Asia, situated in the Indian Ocean, southeast of the Indian subcontinent."
+            },
+            {
+                "fact": "Diverse Ecosystems",
+                "description": "The country is known for its rich biodiversity, featuring a variety of ecosystems including rainforests, wetlands, and coastal areas. It is home to numerous endemic species of flora and fauna."
+            },
+            {
+                "fact": "Cultural Heritage",
+                "description": "Sri Lanka has a rich cultural heritage, with a history that dates back over 2,500 years. It is known for its ancient cities, temples, and UNESCO World Heritage Sites, including Sigiriya and the ancient city of Anuradhapura."
+            },
+            {
+                "fact": "Tea Production",
+                "description": "Sri Lanka is one of the world's largest tea producers and exporters. Ceylon tea, named after the island's former name, is renowned for its quality and flavor."
+            },
+            {
+                "fact": "Buddhism",
+                "description": "Approximately 70% of the population practices Buddhism, making it the predominant religion in Sri Lanka. The country is home to many important Buddhist sites, including the Temple of the Tooth in Kandy."
+            },
+            {
+                "fact": "Ethnic Diversity",
+                "description": "Sri Lanka is ethnically diverse, with the Sinhalese being the largest ethnic group, followed by Tamils, Moors, and others. This diversity contributes to a rich tapestry of languages, traditions, and festivals."
+            },
+            {
+                "fact": "Wildlife",
+                "description": "The country is famous for its wildlife, including elephants, leopards, and a variety of bird species. Yala National Park and Udawalawe National Park are popular destinations for wildlife enthusiasts."
+            },
+            {
+                "fact": "Economy",
+                "description": "Sri Lanka's economy is primarily based on agriculture, manufacturing, and services. In recent years, tourism has become a significant contributor to the economy."
+            },
+            {
+                "fact": "Cricket",
+                "description": "Cricket is the most popular sport in Sri Lanka, and the national team has achieved significant success, including winning the ICC Cricket World Cup in 1996."
+            },
+            {
+                "fact": "Natural Disasters",
+                "description": "Sri Lanka is prone to natural disasters, including tsunamis and cyclones. The 2004 Indian Ocean tsunami had a devastating impact on the country, leading to significant loss of life and property."
+            }
+        ];
+
+        const factDisplay = document.getElementById('factDisplay');
+        const factButton = document.getElementById('factButton');
+
+        // Function to get a random fact
+        function getRandomFact() {
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            const randomFact = facts[randomIndex];
+            factDisplay.innerHTML = `<strong>${randomFact.fact}</strong>: ${randomFact.description}`;
+        }
+
+        // Event listener for button click
+        factButton.addEventListener('click', getRandomFact);
+
+        // Move button when user approaches
+        document.addEventListener('mousemove', (event) => {
+            const buttonRect = factButton.getBoundingClientRect();
+            const buttonX = buttonRect.left + buttonRect.width / 2;
+            const buttonY = buttonRect.top + buttonRect.height / 2;
+
+            const distance = Math.sqrt(Math.pow(event.clientX - buttonX, 2) + Math.pow(event.clientY - buttonY, 2));
+
+            if (distance < 100) {
+                const randomX = Math.random() * (window.innerWidth - buttonRect.width);
+                const randomY = Math.random() * (window.innerHeight - buttonRect.height);
+                factButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            }
+        });
+    </script>
 </body>
 </html>
+
